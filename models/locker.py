@@ -12,4 +12,4 @@ class Locker(Base):
     alloc = Column(String, index=True, comment="ロッカー番号")
     pin = Column(Integer, comment="ロッカーの鍵")
 
-    parking = relationship("Parking", back_populates="locker")
+    parking = relationship("Parking", back_populates="lockers")
