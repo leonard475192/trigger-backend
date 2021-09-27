@@ -1,5 +1,4 @@
-import datetime
-from pydantic.fields import T
+from datetime import datetime
 from sqlalchemy.orm import Session
 
 from models.rental import Rental
@@ -22,11 +21,10 @@ def create_rental(db: Session, rental: lender.RentalCreateReq, locker_id: int):
 
 
 def find_rental_activate_by_car_id(db: Session, car_id: int):
+    now = datetime.now()
     return (
         db.query(Rental)
-        .filter(
-            Rental.car_id == car_id and Rental.available_end >= datetime.datetime.now()
-        )
+        .filter(Rental.car_id == car_id and Rental.available_end >= now)
         .first()
     )
 

@@ -1,7 +1,7 @@
-from fastapi import APIRouter, Depends, File, UploadFile, status
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from schemas import admin
+from schemas.admin import ParkingCreateReq, LockerCreateReq
 
 from db import get_db
 from usecases.parking import create_parking
@@ -12,7 +12,7 @@ router = APIRouter(prefix="/admin")
 
 
 @router.post("/parking")
-def add_parking(parking: admin.ParkingCreateReq, db: Session = Depends(get_db)):
+def add_parking(parking: ParkingCreateReq, db: Session = Depends(get_db)):
     """
     Create parking.
     args:
@@ -26,7 +26,7 @@ def add_parking(parking: admin.ParkingCreateReq, db: Session = Depends(get_db)):
 
 
 @router.post("/locker")
-def add_locker(locker: admin.LockerCreateReq, db: Session = Depends(get_db)):
+def add_locker(locker: LockerCreateReq, db: Session = Depends(get_db)):
     """
     Create locker.
     args:
