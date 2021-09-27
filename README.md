@@ -12,7 +12,7 @@
 
 ```
 mkdir -p ./database/postgres/data
-docker compose up
+docker compose up -d
 ```
 
 postgresサーバーは5433ポートで立ち上がります．
