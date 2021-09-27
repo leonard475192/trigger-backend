@@ -5,7 +5,7 @@ from .database import Base
 
 
 class Car(Base):
-    __tablename__ = "cars"
+    __tablename__ = "car"
 
     id = Column(Integer, index=True, primary_key=True, comment="id")
     type = Column(String, index=True, comment="車種")
