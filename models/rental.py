@@ -1,7 +1,7 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, Date
 from sqlalchemy.orm import relationship
 
-from .database import Base
+from db import Base
 
 
 class Rental(Base):
