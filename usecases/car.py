@@ -1,6 +1,4 @@
-from sqlalchemy import desc
 from sqlalchemy.orm import Session
-from sqlalchemy.sql import text
 
 from models.car import Car
 from schemas import lender

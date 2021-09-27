@@ -1,12 +1,10 @@
-from sqlalchemy import desc
 from sqlalchemy.orm import Session
-from sqlalchemy.sql import text
 
-import models
+from models.image import Image
 
 
 def create_image(db: Session, car_id: int, path: str):
-    db_img = models.Image(
+    db_img = Image(
         car_id=car_id,
         path=path,
     )
