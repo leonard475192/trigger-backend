@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  db:
+    build: ./database
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_DB: trigger_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - type: bind
+        source: ./postgres/data
+        target: /var/lib/postgresql/data
