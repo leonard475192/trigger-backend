@@ -5,8 +5,8 @@ from sqlalchemy.orm import sessionmaker
 DATABASE = "postgresql"
 USER = "postgres"
 PASSWORD = "postgres"
-HOST = "localhost"
-PORT = "5432"
+HOST = "0.0.0.0"
+PORT = "5433"
 DB_NAME = "trigger_db"
 
 DATABASE_URL = f"{DATABASE}://{USER}:{PASSWORD}@{HOST}:{PORT}/{DB_NAME}"
