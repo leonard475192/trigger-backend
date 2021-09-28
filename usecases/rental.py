@@ -1,7 +1,14 @@
 from datetime import datetime
+
+from sqlalchemy.sql.expression import label
+from schemas.borrower import CarUnlockReq
 from sqlalchemy.orm import Session
 
 from models.rental import Rental
+from models.image import Image
+from models.car import Car
+from models.locker import Locker
+from models.parking import Parking
 from schemas import lender
 
 
@@ -23,6 +30,29 @@ def create_rental(db: Session, rental: lender.RentalCreateReq, locker_id: int):
 def select_all(db: Session):
     now = datetime.now()
     return db.query(Rental).filter(Rental.available_end >= now).all()
+
+
+def find_by_id(db: Session, id: int):
+    # FIXME images が何故か取得できない
+    db_rental = (
+        db.query(
+            Rental.id,
+            Rental.car_id,
+            Rental.fee_yen.label("fee"),
+            Car.type,
+            Car.number,
+            Car.images.label("images"),
+            Parking,
+            Rental.available_begin,
+            Rental.available_end,
+        )
+        .join(Car, Car.id == Rental.car_id)
+        .join(Locker, Locker.id == Rental.locker_id)
+        .join(Parking, Parking.id == Locker.parking_id)
+        .filter(Rental.id == id)
+        .first()
+    )
+    return db_rental
 
 
 def find_rental_activate_by_car_id(db: Session, car_id: int):

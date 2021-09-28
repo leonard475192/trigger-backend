@@ -14,3 +14,7 @@ def create_car(db: Session, car: lender.CarCreateReq):
     db.commit()
     db.refresh(db_car)
     return db_car
+
+
+def get_car(db: Session, car_id: int):
+    return db.query(Car).filter(Car.id == car_id).first()
