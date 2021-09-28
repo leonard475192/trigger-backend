@@ -1,16 +1,58 @@
+from models import parking
+from models.parking import Parking
 from db import get_db
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm.session import Session
-from schemas.borrower import CarUnlockReq, CarLockReq
+
+from schemas.borrower import CarUnlockReq, CarLockReq, CarDetail
+from schemas.admin import ParkingCreateRes
+
 from usecases.bill import start_use, end_use
-from usecases.rental import enable_use_flag, disable_use_flag, select_all
+from usecases.image import get_images
+from usecases.rental import enable_use_flag, disable_use_flag, select_all, find_by_id
 from usecases.locker import find_locker_by_id
+
 import datetime
 import math
 
 # from db import get_db
 
 router = APIRouter(prefix="/v1/borrower")
+
+
+@router.get("/car/{id}")
+def get_rental(id: int, db: Session = Depends(get_db)):
+    """
+    Get car by id.
+    args:
+
+    returns:
+        cars(Car[]) : Listed Car info
+    """
+    db_rental = find_by_id(db=db, id=id)
+    db_images = get_images(db=db, car_id=db_rental.car_id)
+    img_paths = []
+    for img in db_images:
+        img_paths.append(img.path)
+    parking = ParkingCreateRes(
+        id=db_rental.Parking.id,
+        name=db_rental.Parking.name,
+        address=db_rental.Parking.address,
+        latitude=db_rental.Parking.latitude,
+        longitude=db_rental.Parking.longitude,
+    )
+    res = CarDetail(
+        id=db_rental.id,
+        car_id=db_rental.car_id,
+        fee=db_rental.fee,
+        type=db_rental.type,
+        number=db_rental.number,
+        images=img_paths,
+        Parking=parking,
+        available_begin=db_rental.available_begin,
+        available_end=db_rental.available_end,
+    )
+    return res
 
 
 @router.post("/car:search")
