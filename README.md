@@ -19,9 +19,13 @@ postgresサーバーは5433ポートで立ち上がります．
 
 ### app
 
-- Run app
-`uvicorn main:app`
+依存パッケージのインストール
 
-- Watch directory
+```pip install -r requirement.txt```
 
-`uvicorn main:app --reload`
+Run app
+```uvicorn main:app```
+
+Watch directory
+
+```uvicorn main:app --reload```
