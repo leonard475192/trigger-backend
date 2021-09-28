@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   db:
@@ -13,3 +13,9 @@ services:
       - type: bind
         source: ./database/postgres/data
         target: /var/lib/postgresql/data
+      - ./database/tmp:/tmp
+    # entrypoint: >
+    #   sh -c "
+    #     sh /tmp/container-init.sh　&&
+    #     docker-entrypoint.sh postgres
+    #   "

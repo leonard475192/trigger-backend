@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from schemas.base import Geometry
 
 
 class ParkingCreateReq(BaseModel):
@@ -6,8 +7,7 @@ class ParkingCreateReq(BaseModel):
 
     name: str
     address: str
-    latitude: float
-    longitude: float
+    location: Geometry
 
 
 class LockerCreateReq(BaseModel):
