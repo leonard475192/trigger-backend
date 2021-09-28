@@ -7,3 +7,10 @@ class AvailableDateTimes(BaseModel):
 
     begin: datetime.datetime
     end: datetime.datetime
+
+
+class Locker(BaseModel):
+    """Locker objects"""
+
+    alloc: str
+    pin: int
