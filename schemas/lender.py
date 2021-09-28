@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from schemas.base import AvailableDateTimes
+from schemas.base import AvailableDateTimes, Locker
 
 
 class UploadImgRes(BaseModel):
@@ -30,7 +30,7 @@ class RentalCreateReq(BaseModel):
     parkingId: int
     fee: int
     availableDateTimes: AvailableDateTimes
-    locker: str
+    locker: Locker
 
 
 class RentalCreateRes(BaseModel):

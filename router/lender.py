@@ -11,7 +11,7 @@ from usecases.locker import find_locker_by_alloc
 from usecases.rental import create_rental, delete_rental
 from db import get_db
 
-router = APIRouter(prefix="/lender")
+router = APIRouter(prefix="/v1/lender")
 
 
 @router.post("/photo", response_model=lender.UploadImgRes)
@@ -53,8 +53,10 @@ def add_rental(rental: lender.RentalCreateReq, db: Session = Depends(get_db)):
         schemas.RentalCreateRes :
     """
     locker = find_locker_by_alloc(
-        db=db, parking_id=rental.parkingId, alloc=rental.locker
+        db=db, parking_id=rental.parkingId, alloc=rental.locker.alloc
     )
+    if not locker:
+        return JSONResponse(status_code=status.HTTP_404_NOT_FOUND, content={})
     create_rental(db=db, rental=rental, locker_id=locker.id)
     return JSONResponse(status_code=status.HTTP_201_CREATED, content={})
 
