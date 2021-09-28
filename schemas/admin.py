@@ -10,6 +10,16 @@ class ParkingCreateReq(BaseModel):
     longitude: float
 
 
+class ParkingCreateRes(BaseModel):
+    """Parking create req objects"""
+
+    id: int
+    name: str
+    address: str
+    latitude: float
+    longitude: float
+
+
 class LockerCreateReq(BaseModel):
     """Locker create req objects"""
 
