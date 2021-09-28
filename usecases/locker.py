@@ -18,3 +18,7 @@ def find_locker_by_alloc(db: Session, parking_id: int, alloc: str):
         .filter(Locker.parking_id == parking_id and Locker.alloc == alloc)
         .first()
     )
+
+
+def find_locker_by_id(db: Session, locker_id: int) -> Locker:
+    return db.query(Locker).filter(Locker.id == locker_id).first()

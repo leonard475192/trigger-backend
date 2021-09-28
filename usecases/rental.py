@@ -34,3 +34,17 @@ def delete_rental(db: Session, car_id: int):
     db_rental.delete_flag = True
     db.commit()
     return db_rental
+
+
+def enable_use_flag(db: Session, car_id: int) -> Rental:
+    rnt = find_rental_activate_by_car_id(db, car_id)
+    rnt.in_use_flag = True
+    db.commit()
+    return rnt
+
+
+def disable_use_flag(db: Session, car_id: int) -> Rental:
+    rnt = find_rental_activate_by_car_id(db, car_id)
+    rnt.in_use_flag = False
+    db.commit()
+    return rnt
