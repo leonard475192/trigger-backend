@@ -1,5 +1,5 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import backref, relationship
 
 from db import Base
 
@@ -12,4 +12,5 @@ class Locker(Base):
     alloc = Column(String, index=True, comment="ロッカー番号")
     pin = Column(Integer, comment="ロッカーの鍵")
 
-    parking = relationship("Parking", back_populates="lockers")
+    parking = relationship("Parking", backref=backref("child"))
+    rentals = relationship("Rental", back_populates="locker")
