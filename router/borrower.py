@@ -3,18 +3,18 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm.session import Session
 from schemas.borrower import CarUnlockReq, CarLockReq
 from usecases.bill import start_use, end_use
-from usecases.rental import enable_use_flag, disable_use_flag
+from usecases.rental import enable_use_flag, disable_use_flag, select_all
 from usecases.locker import find_locker_by_id
 import datetime
 import math
 
 # from db import get_db
 
-router = APIRouter(prefix="/borrower/v1")
+router = APIRouter(prefix="/v1/borrower")
 
 
 @router.post("/car:search")
-def search_cars():
+def search_cars(db: Session = Depends(get_db)):
     """
     Search car near the user.
     args:
@@ -23,7 +23,8 @@ def search_cars():
     returns:
         cars(Car[]) : Listed Car info
     """
-    return {"car": []}
+    rentals = select_all(db)
+    return {"car": rentals}
 
 
 @router.post("/car:unlock")

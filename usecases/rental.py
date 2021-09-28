@@ -20,6 +20,11 @@ def create_rental(db: Session, rental: lender.RentalCreateReq, locker_id: int):
     return db_rental
 
 
+def select_all(db: Session):
+    now = datetime.now()
+    return db.query(Rental).filter(Rental.available_end >= now).all()
+
+
 def find_rental_activate_by_car_id(db: Session, car_id: int):
     now = datetime.now()
     return (
