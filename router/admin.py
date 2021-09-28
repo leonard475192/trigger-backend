@@ -8,7 +8,7 @@ from usecases.parking import create_parking
 from usecases.locker import create_locker
 
 
-router = APIRouter(prefix="/admin")
+router = APIRouter(prefix="/v1/admin")
 
 
 @router.post("/parking")

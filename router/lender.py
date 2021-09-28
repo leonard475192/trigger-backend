@@ -11,7 +11,7 @@ from usecases.locker import find_locker_by_alloc
 from usecases.rental import create_rental, delete_rental
 from db import get_db
 
-router = APIRouter(prefix="/lender")
+router = APIRouter(prefix="/v1/lender")
 
 
 @router.post("/photo", response_model=lender.UploadImgRes)
