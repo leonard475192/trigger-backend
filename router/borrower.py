@@ -66,7 +66,20 @@ def search_cars(db: Session = Depends(get_db)):
         cars(Car[]) : Listed Car info
     """
     rentals = select_all(db)
-    return {"car": rentals}
+    rnts = map(
+        lambda r: {
+            "id": r.id,
+            "type": r.car.type,
+            "number": r.car.number,
+            "images": r.car.images,
+            "parking": r.locker.parking,
+            "fee": r.fee_yen,
+            "availableDateTimes": {"begin": r.available_begin, "end": r.available_end},
+        },
+        rentals,
+    )
+
+    return list(rnts)
 
 
 @router.post("/car:unlock")

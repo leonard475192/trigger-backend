@@ -1,5 +1,5 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, DateTime
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import backref, relationship
 
 from db import Base
 
@@ -17,5 +17,5 @@ class Rental(Base):
     available_end = Column(DateTime, index=True, comment="貸し出し終了時間")
     delete_flag = Column(Boolean, default=False, comment="論理削除")
 
-    car = relationship("Car", back_populates="rentals")
-    locker = relationship("Locker")
+    car = relationship("Car", backref=backref("child"))
+    locker = relationship("Locker", backref=backref("child"))

@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from typing import List
 from sqlalchemy.sql.expression import label
 from schemas.borrower import CarUnlockReq
 from sqlalchemy.orm import Session
@@ -27,7 +27,7 @@ def create_rental(db: Session, rental: lender.RentalCreateReq, locker_id: int):
     return db_rental
 
 
-def select_all(db: Session):
+def select_all(db: Session) -> List[Rental]:
     now = datetime.now()
     return db.query(Rental).filter(Rental.available_end >= now).all()
 

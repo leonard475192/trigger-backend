@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import backref, relationship
 
 from db import Base
 
@@ -11,5 +11,5 @@ class Car(Base):
     type = Column(String, index=True, comment="車種")
     number = Column(String, index=True, comment="ナンバープレート")
 
-    images = relationship("Image", back_populates="car")
-    rentals = relationship("Rental", back_populates="car")
+    images = relationship("Image", backref=backref("child"))
+    rental = relationship("Rental", back_populates="car")
