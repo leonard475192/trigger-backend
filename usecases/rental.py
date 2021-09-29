@@ -29,7 +29,12 @@ def create_rental(db: Session, rental: lender.RentalCreateReq, locker_id: int):
 
 def select_all(db: Session) -> List[Rental]:
     now = datetime.now()
-    return db.query(Rental).filter(Rental.available_end >= now).all()
+    return (
+        db.query(Rental)
+        .filter(Rental.available_end >= now)
+        .filter(Rental.in_use_flag == False)
+        .all()
+    )
 
 
 def find_by_id(db: Session, id: int):
